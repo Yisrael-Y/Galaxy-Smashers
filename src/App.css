@@ -8,3 +8,84 @@ html,
 body {
   height: 100%;
 }
+
+.AppContainer,
+.AppHeader {
+  flex: 1;
+}
+
+.GameScreen {
+  margin-top: 3;
+  min-height: 70vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #000;
+  color: #fff;
+  font-size: 2em;
+  position: relative;
+}
+
+.Footer {
+  margin-top: 3;
+  padding: 3;
+  text-align: center;
+  background-color: #333;
+  color: #fff;
+}
+
+.UserModalButton {
+  color: white;
+  background: #333;
+  margin-right: 50px;
+  margin-left: 50px;
+  flex: 1;
+}
+
+.LoginButton {
+  margin-top: 16px;
+}
+
+.SignUpContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.SignUpTop {
+  display: flex;
+  gap: 0.7em;
+  flex-direction: column;
+}
+
+.center {
+  display: flex;
+  align-items: baseline;
+}
+
+.SignUpHeadline {
+  color: rgb(187, 185, 185);
+  font-size: 1em;
+}
+
+.SignUpHeadline-black {
+  color: black;
+  font-size: 1.5em;
+}
+
+.dot {
+  color: green;
+  font-size: 1.5em;
+}
+
+.LoginTextInputs {
+  border-radius: 10px;
+  margin-bottom: 16px;
+}
+
+.LoaderContainer {
+  display: flex;
+  margin-top: 2;
+  padding: 0;
+  justify-content: center;
+  align-items: center;
+}
