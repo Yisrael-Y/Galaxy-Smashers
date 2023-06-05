@@ -27,7 +27,7 @@ const UserModal = ({ open, handleClose }) => {
   const [currentRequest, setCurrentRequest] = useState('Login')
 
   const handleSignUpClick = () => {
-    setCurrentRequest('SignUp');
+    setCurrentRequest('Signup');
   }
 
   const handleLoginClick = () => {
