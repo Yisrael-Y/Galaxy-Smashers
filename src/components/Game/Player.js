@@ -1,6 +1,6 @@
 class Player extends Phaser.Scene {
   constructor() {
-    super();
+    super({ key: "Player" });
     this.cursors = null;
     this.speed = 300;
     this.player1 = null;
@@ -8,14 +8,16 @@ class Player extends Phaser.Scene {
   }
 
   preload() {
-    this.load.setBaseURL("https://labs.phaser.io");
-    this.load.image("sky", "assets/skies/space3.png");
+    this.load.audio("rocky", "src/assets/rocky.mp3");
+    this.load.image("sky", "src/assets/space-bag.jpg");
     this.load.image("paddle", "assets/sprites/paddle.png");
   }
 
   create() {
-    this.add.image(400, 300, "sky");
+    const { width, height } = this.game.canvas;
 
+    this.add.image(width / 2, height / 2, "sky").setDisplaySize(width, height);
+    this.sound.play("rocky", { loop: true });
     this.player1 = this.createPlayer(50, 300);
     this.player2 = this.createPlayer(750, 300);
 

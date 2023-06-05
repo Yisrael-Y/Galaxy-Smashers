@@ -4,15 +4,17 @@ class StartScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.setBaseURL("https://labs.phaser.io");
-    this.load.image("start", "assets/start-screen.png");
+    this.load.audio("music", "src/assets/starter.flac");
   }
 
   create() {
-    this.add.image(400, 300, "start");
-    this.input.on("pointerdown", () => {
-      this.scene.start("GameScene");
-    });
+    this.sound.play("music", { loop: true });
+    this.add
+      .text(200, 250, "Start Game", { fill: "#fff", fontSize: "64px" })
+      .setInteractive()
+      .on("pointerdown", () => {
+        this.scene.start("NicknameScene");
+      });
   }
 }
 

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Phaser from 'phaser';
 import Player from './Player'
 import StartScene from './StartScreen';
+import NicknameScene from './NicknameScene';
 
 const GameScreen = () => {
   const [game, setGame] = useState(null);
@@ -18,7 +19,7 @@ const GameScreen = () => {
               gravity: { y: 0 }
           }
       },
-        scene: [Player],
+        scene: [StartScene, NicknameScene, Player],
         parent: 'game-container'
       };
 
