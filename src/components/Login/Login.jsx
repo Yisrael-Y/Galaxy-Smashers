@@ -1,16 +1,31 @@
-import { Box, CircularProgress, TextField, Button } from '@mui/material';
+import { Box, CircularProgress, TextField, Button, Typography } from '@mui/material';
 import React, { useState } from 'react'
+import newAxios from '../Axios';
 
 const Login = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [user, setUser] = useState({
+        email:'',
+        password:''
+    })
     const [errorMessage, setErrorMessage] = useState('')
     const [message, setMessage] = useState('')
     const [isLoading, setIsLoading] = useState(false)
 
-    const handleSubmit = (e) => {
+    const detailsChange = (e) => {
+        setUser({...user, [e.name]:e.value})
+      }
+
+    const handleSubmit = async (e) => {
         e.preventDefault()
-        console.log('test');
+        setErrorMessage('')
+        setMessage('')
+        try {
+            const response = await newAxios.post('/users/login', user)
+            console.log(response.data);
+        } catch (error) {
+            console.error(error);
+            setErrorMessage(error.response.data)
+        }
     }
 
   return (
@@ -25,28 +40,30 @@ const Login = () => {
                     <TextField
                         className='LoginTextInputs'
                         label="Email"
+                        name='email'
                         type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        value={user.email}
+                        onChange={(e) => detailsChange(e.target)}
                         required
                         fullWidth
                         margin="normal"
                     />
                     <TextField
                         className='LoginTextInputs'
+                        name='password'
                         label="Password"
                         type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        value={user.password}
+                        onChange={(e) => detailsChange(e.target)}
                         required
                         fullWidth
                         margin="normal"
                     />
-                    <Button variant="contained" type="submit" className='LoginButton' >
+                    <Button fullWidth variant="contained" type="submit" className='LoginButton' >
                         Log in
                     </Button>
-                    {errorMessage && <span className='ErrorMessage'>{errorMessage}</span>}
-                    {message && <span className='Success'>{message}</span>}
+                    {errorMessage && <Typography className='ErrorMessage'>{errorMessage}</Typography>}
+                    {message && <Typography className='Success'>{message}</Typography>}
                     {isLoading 
                     && 
                     <Box className='LoaderContainer'>

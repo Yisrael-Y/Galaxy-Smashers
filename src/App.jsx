@@ -5,6 +5,7 @@ import NavBar from './components/NavBar';
 import GameScreen from './components/Game/GameScreen';
 
 function App() {
+  
 
   return (
     <div >

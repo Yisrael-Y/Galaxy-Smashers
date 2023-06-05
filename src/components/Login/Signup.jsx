@@ -1,14 +1,14 @@
 import { CircularProgress, TextField, Button, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import React, { useState } from 'react'
-import axios from 'axios'
+import newAxios from '../Axios'
 
 
 const Signup = () => {
   const [user, setUser] = useState({
     email:'',
     password:'',
-    confirmPass:'',
+    repassword:'',
     firstName:'',
     lastName:'',
     nickname:'',
@@ -22,26 +22,16 @@ const Signup = () => {
   }
 
   const handleSubmit = async (e) => {
-    if (!CheckFields(e)) return
-    try {
-      // const response = await axios.post(process.env.REACT_APP_SERVER, user)
-
-      
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  const CheckFields = (e) => {
     e.preventDefault()
     setMessage('')
     setErrorMessage('')
-    e.preventDefault()
-    if(user.password !== user.confirmPass) {
-      setErrorMessage('Passwords do not match')
-      return false
+    try {
+      const response = await newAxios.post(`${import.meta.env.VITE_SERVER}/users/signup`, user)
+      console.log(response.data);
+    } catch (error) {
+      console.error(error)
+      setErrorMessage(error.response.data)
     }
-    return true
   }
 
   return (
@@ -101,9 +91,9 @@ const Signup = () => {
                         className='LoginTextInputs'
                         label="Re-type password"
                         onChange={(e) => detailsChange(e.target)}
-                        name='confirmPass'
+                        name='repassword'
                         type="password"
-                        value={user.confirmPass}
+                        value={user.repassword}
                         required
                         fullWidth
                         margin="normal"
