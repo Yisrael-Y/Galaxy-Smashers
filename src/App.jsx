@@ -6,9 +6,8 @@ import GameScreen from './components/Game/GameScreen';
 
 function App() {
   
-
   return (
-    <div >
+    <div>
       <NavBar/>
       <GameScreen/>
       <footer className='Footer'>

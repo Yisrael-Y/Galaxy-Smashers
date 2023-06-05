@@ -14,18 +14,6 @@ body {
   flex: 1;
 }
 
-.GameScreen {
-  margin-top: 3;
-  min-height: 70vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #000;
-  color: #fff;
-  font-size: 2em;
-  position: relative;
-}
-
 .Footer {
   margin-top: 3;
   padding: 3;
@@ -122,6 +110,23 @@ body {
   text-align: center;
   opacity: 0;
   animation: fadeIn 0.4s ease forwards;
+}
+
+.player {
+  position: absolute;
+  background-color: white;
+  width: 10px;
+  height: 50px;
+}
+
+.GameContainer {
+  display: flex;
+}
+.PlayerStats {
+  flex: 1;
+}
+#game-container {
+  flex: 2;
 }
 
 @keyframes fadeIn {
