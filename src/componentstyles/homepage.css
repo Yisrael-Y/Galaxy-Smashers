@@ -1,0 +1,182 @@
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+/* 
+html {
+  font-size: 62.5%;
+  background-color: rgba(245, 107, 1, 0.8); 
+}
+
+body {
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.2;
+} */
+
+.main-pg {
+  height: 95vh;
+  background-image: linear-gradient(
+      to right bottom,
+      rgba(49, 42, 112, 0.2),
+      rgba(0, 0, 0, 0.8)
+    ),
+    url(../images/outerspace.jpg);
+  background-size: cover;
+  background-position: top;
+  /* clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%); */
+  position: relative;
+}
+
+.text-box {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+    font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.2;
+  font-family: 'Press Start 2P', cursive;
+}
+
+.heading-primary {
+  color: #ff8484;
+  text-transform: uppercase;
+
+  /* this is a fix for the shake that sometimes happens at the end of an animation */
+  backface-visibility: hidden;
+
+  margin-bottom: 2rem;
+}
+
+.heading-primary-main {
+  display: block;
+  font-size: 3rem;
+  font-weight: 400;
+  letter-spacing: 3.5rem;
+  animation-name: moveInLeft;
+  animation-duration: 1s;
+  animation-timing-function: ease-out;
+
+  /*animation-iteration-count: 3;
+ animation-delay: 3s; */
+}
+
+.heading-primary-sub {
+  display: block;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 1.75rem;
+  animation: moveInRight 1s ease-out;
+}
+
+.heading-primary-text {
+  display: block;
+  margin-top: 20px;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.5rem;
+  animation: moveInRight 1s ease-out;
+  /* animation: moveInBottom 2s ease-out 0.75; */
+  animation-fill-mode: backwards;
+}
+
+@keyframes moveInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-10rem);
+  }
+  80% {
+    transform: translateX(1rem);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(0);
+  }
+}
+
+@keyframes moveInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(10rem);
+}
+
+  80% {
+      transform: translateX(-1rem);
+    }
+    
+    100% {
+    opacity: 1;
+    transform: translate(0);
+  }
+}
+
+.btn-animated:link,
+.btn-animated:visited {
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 1.5rem 4rem;
+  display: inline-block;
+  border-radius: 3rem;
+  transition: all 0.2s;
+  position: relative;
+  font-weight: 700;
+  font-size: 1.6rem;
+  
+}
+
+.btn-animated:hover {
+    transform: translateY(-0.3rem);
+    box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.2);    
+}
+
+.btn-animated:active {
+    transform: translateY(-0.1rem);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+}
+
+
+
+.btn-animated::after {
+    content: "";
+    display: inline-block;
+    height: 3rem;
+    width: 30rem;
+    border-radius: 4rem;
+    position: absolute;
+    top: 12rem;
+    left: 10rem;
+    z-index: -1;
+    transition: all 0.4s;
+    background-color: #252121;
+}
+
+.btn-animated:hover::after {
+    transform: scaleX(1.4) scaleY(1.6);
+    opacity: 0;
+} 
+
+.btn-animated {
+    animation: moveInBottom 2s ease-out 0.75;
+    animation-fill-mode: backwards;
+      color: #ff8484;
+
+}
+@keyframes moveInBottom {
+  0% {
+    opacity: 0;
+    transform: translateY(3rem);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(0);
+  }
+}
