@@ -2,13 +2,13 @@ import { AppBar, Box, Button, Toolbar, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import SportsTennisIcon from '@mui/icons-material/SportsTennis';
 import Modal from './Login/Modal'
+import { useNavigate } from 'react-router-dom';
 
 const NavBar = () => {
-
     const [open, setOpen] = useState(false);
     const token = localStorage.getItem('token')// this is temp
 
-
+    const navigate = useNavigate();
     const handleOpen = () => {
         setOpen(true);
       };
@@ -16,11 +16,15 @@ const NavBar = () => {
       const handleClose = () => {
         setOpen(false);
       };
+
+      const navigateToHomepage = () => {
+        navigate('/');
+      };
   return (
     <AppBar className='AppContainer' position="static">
         <Toolbar>
             <SportsTennisIcon/>
-            <Typography variant="h6" className='Header' >
+            <Typography on variant="h6" className='Header' onClick={navigateToHomepage} >
                 Galaxy Smashers
             </Typography>
             <Box sx={{ flexGrow: 0, display: { xs: 'flex', sm: 'flex', md: 'flex' } }}>
