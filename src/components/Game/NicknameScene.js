@@ -8,7 +8,7 @@ class NicknameScene extends Phaser.Scene {
     const inputElement = document.createElement("input");
     inputElement.type = "text";
     inputElement.style.position = "absolute";
-    inputElement.style.top = "25%";
+    inputElement.style.top = "30%";
     inputElement.style.left = "50%";
     inputElement.style.transform = "translate(-50%, -50%)";
     inputElement.style.width = "200px";
@@ -34,7 +34,7 @@ class NicknameScene extends Phaser.Scene {
       .on("pointerdown", () => {
         this.sound.stopByKey("music");
         inputElement.remove();
-        this.scene.start("Player", { nickname: inputElement.value });
+        this.scene.start("Game", { nickname: inputElement.value });
       });
   }
 }
