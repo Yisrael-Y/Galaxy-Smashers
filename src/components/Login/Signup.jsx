@@ -27,7 +27,7 @@ const Signup = () => {
     setErrorMessage('')
     try {
       const response = await newAxios.post(`${import.meta.env.VITE_SERVER}/users/signup`, user)
-      console.log(response.data);
+      setMessage(response.data.message)
     } catch (error) {
       console.error(error)
       setErrorMessage(error.response.data)

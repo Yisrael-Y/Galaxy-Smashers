@@ -29,6 +29,7 @@ class NicknameScene extends Phaser.Scene {
         paddingRight: "30",
         paddingTop: "20",
         paddingBottom: "20",
+        fontFamily: "Lato",
       })
       .setInteractive()
       .on("pointerdown", () => {

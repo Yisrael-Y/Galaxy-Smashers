@@ -7,7 +7,7 @@ import "../componentstyles/homepage.css"
 const Homepage = () => {
 
     //  const navigate = useNavigate();
-     const [open, setOpen] = useState(true);
+     const [open, setOpen] = useState(false);
 
 
     const handleClick = () => {

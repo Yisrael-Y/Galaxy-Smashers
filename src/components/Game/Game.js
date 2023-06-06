@@ -20,7 +20,6 @@ class Game extends Phaser.Scene {
     this.add.image(width / 2, height / 2, "sky").setDisplaySize(width, height);
     this.sound.play("rocky", { loop: true });
 
-    const cursorsKeys = this.input.keyboard.createCursorKeys();
     this.players.push(
       this.createPlayer(50, height / 2, cursorsKeys, { x: 50, y: height / 2 })
     );
@@ -30,7 +29,7 @@ class Game extends Phaser.Scene {
         x: width - 50,
         y: height / 2,
       })
-    ); // AI
+    );
 
     const circle = this.add.circle(width / 2, height / 2, 15, 0xffffff);
     this.ball = this.physics.add.existing(circle, false);

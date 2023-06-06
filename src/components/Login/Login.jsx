@@ -21,7 +21,9 @@ const Login = () => {
         setMessage('')
         try {
             const response = await newAxios.post('/users/login', user)
-            console.log(response.data);
+            if(response.data) {
+                setMessage('Logged in Successfully')
+            }
         } catch (error) {
             console.error(error);
             setErrorMessage(error.response.data)
