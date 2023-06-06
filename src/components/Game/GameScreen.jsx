@@ -5,7 +5,7 @@ const GameScreen = () => {
   return (
     <Container maxWidth="md">
         <Box className='GameScreen'>
-            Game is here
+            Start Game
         </Box>
     </Container>
   )
