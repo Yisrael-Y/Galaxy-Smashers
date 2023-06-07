@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { SocketContext } from './SocketContext';
 
 export default function Chat() {
-  const { alert, alertEvents, socket, setAlertEvents } =
+  const { alert, alertEvents, socket } =
     useContext(SocketContext);
   const [input, setInput] = useState('');
 
@@ -15,7 +15,6 @@ export default function Chat() {
     if (e.key === 'Enter') {
       e.preventDefault();
       socket.emit('test', e.target.value);
-      setAlertEvents((prev) => [e.target.value, ...prev]);
       console.log(e.target.value);
       setInput('');
     }
@@ -31,11 +30,7 @@ export default function Chat() {
         onKeyDown={handleClick}
       />
       {alertEvents &&
-        alertEvents.map((event, index) => (
-          <div key={index}>
-             {event}
-          </div>
-        ))}
+        alertEvents.map((event, index) => <div key={index}>{event}</div>)}
     </div>
   );
 }

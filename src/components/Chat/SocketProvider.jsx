@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { SocketContext } from './SocketContext';
-import io from 'socket.io-client';
-
-const URL = import.meta.env.VITE_SERVER;
-const socket = io('http://10.00.10:8080');
+import socket from './Socket';
 
 const SocketProvider = ({ children }) => {
   const [alert, setAlert] = useState(false);
@@ -27,14 +24,20 @@ const SocketProvider = ({ children }) => {
       setAlertEvents((prev) => [value, ...prev]);
     }
 
-    function onPlayerMovementEvent(value) {
-      console.log('player movement received', value);
+    function onRemotePlayerMovementEvent(value) {
+      console.log('Remote player movement:', value);
+    }
+
+    function onLocalPlayerMovementEvent(value) {
+      console.log('Local player movement:', value);
     }
 
     socket.on('connect', onConnect);
     socket.on('disconnect', onDisconnect);
     socket.on('test', onFooEvent);
-    socket.on('player-movement', onPlayerMovementEvent);
+    // test movements
+    socket.on('remote-player-movement', onRemotePlayerMovementEvent);
+    socket.on('local-player-movement', onLocalPlayerMovementEvent);
 
     return () => {
       socket.off('connect', onConnect);
