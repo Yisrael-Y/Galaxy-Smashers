@@ -3,7 +3,7 @@ import { SocketContext } from './SocketContext';
 import io from 'socket.io-client';
 
 const URL = import.meta.env.VITE_SERVER;
-const socket = io(URL);
+const socket = io('http://10.00.10:8080');
 
 const SocketProvider = ({ children }) => {
   const [alert, setAlert] = useState(false);
@@ -27,9 +27,14 @@ const SocketProvider = ({ children }) => {
       setAlertEvents((prev) => [value, ...prev]);
     }
 
+    function onPlayerMovementEvent(value) {
+      console.log('player movement received', value);
+    }
+
     socket.on('connect', onConnect);
     socket.on('disconnect', onDisconnect);
     socket.on('test', onFooEvent);
+    socket.on('player-movement', onPlayerMovementEvent);
 
     return () => {
       socket.off('connect', onConnect);

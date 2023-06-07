@@ -1,6 +1,7 @@
 import { Box, CircularProgress, TextField, Button, Typography } from '@mui/material';
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import newAxios from '../Axios';
+import { authContext } from '../../context/authContext';
 
 const Login = () => {
     const [user, setUser] = useState({
@@ -10,6 +11,7 @@ const Login = () => {
     const [errorMessage, setErrorMessage] = useState('')
     const [message, setMessage] = useState('')
     const [isLoading, setIsLoading] = useState(false)
+    const {setUserDetails} = useContext(authContext)
 
     const detailsChange = (e) => {
         setUser({ ...user, [e.name]: e.value })
@@ -21,6 +23,7 @@ const Login = () => {
         setMessage('')
         try {
             const response = await newAxios.post('/users/login', user)
+            setUserDetails(response.data)
             if(response.data) {
                 setMessage('Logged in Successfully')
             }

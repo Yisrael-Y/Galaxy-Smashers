@@ -19,7 +19,7 @@ class Game extends Phaser.Scene {
     const { width, height } = this.game.canvas;
     this.add.image(width / 2, height / 2, "sky").setDisplaySize(width, height);
     this.sound.play("rocky", { loop: true });
-
+    const cursorsKeys = this.input.keyboard.createCursorKeys();
     this.players.push(
       this.createPlayer(50, height / 2, cursorsKeys, { x: 50, y: height / 2 })
     );

@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect ,useState } from 'react';
 import Phaser from 'phaser';
 import StartScene from './StartScreen';
-import NicknameScene from './NicknameScene';
+import GameMode from './GameMode';
 import Game from './Game'
+import PlayerStats from './PlayerStats';
 
 const GameScreen = () => {
   const [game, setGame] = useState(null);
@@ -19,7 +20,7 @@ const GameScreen = () => {
               gravity: { y: 0 }
           }
       },
-        scene: [StartScene, NicknameScene, Game],
+        scene: [StartScene, GameMode, Game],
         parent: 'game-container'
       };
 
@@ -34,9 +35,9 @@ const GameScreen = () => {
   }, [game]);
 
   return ( <div className='GameContainer'>
-              <h1 className='PlayerStats'>Player Stats</h1>
+              <PlayerStats/>
               {{game} && <div style={{textAlign:'center'}} id="game-container"/>}
-              <h1 className='PlayerStats'>Player Stats</h1>
+              <PlayerStats/>
           </div>
 );
 };

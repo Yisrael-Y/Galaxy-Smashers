@@ -4,11 +4,12 @@ class StartScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.audio("music", "src/assets/starter.flac");
+    this.load.audio("music", "src/assets/space.mp3");
     this.load.video("spaceVideo", "src/assets/space-vid.mp4");
   }
 
   create() {
+    this.sound.play("music", { loop: true });
     const spaceVideo = this.add.video(
       this.game.canvas.width / 2,
       this.game.canvas.height / 2,
@@ -32,7 +33,7 @@ class StartScene extends Phaser.Scene {
       .setOrigin(0.5)
       .setInteractive()
       .on("pointerdown", () => {
-        this.scene.start("NicknameScene");
+        this.scene.start("GameMode");
       });
   }
 }

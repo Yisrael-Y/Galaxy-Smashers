@@ -27,6 +27,7 @@ export default function Chat() {
         type="text"
         onChange={handleChange}
         placeholder="chat..."
+        value={input}
         onKeyDown={handleClick}
       />
       {alertEvents &&

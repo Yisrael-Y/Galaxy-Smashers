@@ -1,6 +1,6 @@
 import { CircularProgress, TextField, Button, Typography } from '@mui/material'
 import { Box } from '@mui/system'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import newAxios from '../Axios'
 
 
@@ -16,6 +16,7 @@ const Signup = () => {
   const [errorMessage, setErrorMessage] = useState('')
   const [message, setMessage] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const {setUserDetails} = useContext(authContext)
 
   const detailsChange = (e) => {
     setUser({...user, [e.name]:e.value})
@@ -27,6 +28,7 @@ const Signup = () => {
     setErrorMessage('')
     try {
       const response = await newAxios.post(`${import.meta.env.VITE_SERVER}/users/signup`, user)
+      setUserDetails(response.data)
       setMessage(response.data.message)
     } catch (error) {
       console.error(error)
@@ -94,6 +96,17 @@ const Signup = () => {
                         name='repassword'
                         type="password"
                         value={user.repassword}
+                        required
+                        fullWidth
+                        margin="normal"
+                    />
+                    <TextField
+                        className='LoginTextInputs'
+                        label="Nickname"
+                        onChange={(e) => detailsChange(e.target)}
+                        name='nickname'
+                        type="text"
+                        value={user.nickname}
                         required
                         fullWidth
                         margin="normal"
