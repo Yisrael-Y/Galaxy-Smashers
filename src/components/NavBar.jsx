@@ -1,6 +1,7 @@
 import { AppBar, Box, Button, Toolbar, Typography } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
-import SportsTennisIcon from "@mui/icons-material/SportsTennis";
+import RocketLaunchIcon from "@mui/icons-material/RocketLaunch";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Modal from "./Login/Modal";
 import { useNavigate } from "react-router-dom";
 import { UserContext, authContext } from "../context/authContext";
@@ -23,23 +24,24 @@ const NavBar = () => {
     navigate("/");
   };
 
-const handleLogOut = async () => {
-  try {
-    await newAxios.get(`/users/logout`);
-    setUserDetails("");
-    navigateToHomepage();
-  } catch (error) {
-    console.log(error);
-  }
-
-};
-
+  const handleLogOut = async () => {
+    try {
+      await newAxios.get(`/users/logout`);
+      setUserDetails("");
+      navigateToHomepage();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
-    <AppBar className="AppContainer" position="static" sx={{ backgroundColor:'#483D8B'}}
+    <AppBar
+      className="AppContainer"
+      position="static"
+      sx={{ backgroundColor: "#483D8B" }}
     >
       <Toolbar>
-        <SportsTennisIcon />
+        <RocketLaunchIcon />
         <Typography
           on
           variant="h6"
@@ -67,6 +69,12 @@ const handleLogOut = async () => {
             </Button>
           )}
         </Box>
+        {userDetails && <AccountCircleIcon
+          on
+          variant="h6"
+          className="Header"
+          onClick={() => navigate("/profile")}
+        />}
       </Toolbar>
       <Modal open={open} handleClose={handleClose} />
     </AppBar>

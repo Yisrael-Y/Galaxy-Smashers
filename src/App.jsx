@@ -6,6 +6,7 @@ import GameScreen from './components/Game/GameScreen';
 import Footer from './components/Footer';
 import './App.css';
 import AdminDashboard from './components/admin/AdminDashboard';
+import UserProfile from './components/Login/UserProfile';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/" element={<Homepage />} />
         <Route path="/gamescreen" element={<GameScreen />} />
         <Route path="/admindashboard" element={<AdminDashboard />} />
+        <Route path="/profile" element={<UserProfile />} />
       </Routes>
       <Footer />
     </>
