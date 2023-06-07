@@ -36,7 +36,8 @@ const handleLogOut = async () => {
 
 
   return (
-    <AppBar className="AppContainer" position="static">
+    <AppBar className="AppContainer" position="static" sx={{ backgroundColor:'#483D8B'}}
+    >
       <Toolbar>
         <SportsTennisIcon />
         <Typography
@@ -53,14 +54,14 @@ const handleLogOut = async () => {
           {userDetails ? (
             <Button
               onClick={(e) => handleLogOut(e)}
-              sx={{ my: 2, color: "black", display: "block" }}
+              sx={{ my: 2, color: "white", display: "block" }}
             >
               Log Out
             </Button>
           ) : (
             <Button
               onClick={() => handleOpen()}
-              sx={{ my: 2, color: "black", display: "block" }}
+              sx={{ my: 2, color: "white", display: "block" }}
             >
               Log in
             </Button>
