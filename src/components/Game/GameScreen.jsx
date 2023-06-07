@@ -5,6 +5,8 @@ import StartScene from './StartScreen';
 import GameMode from './GameMode';
 import Game from './Game';
 import PlayerStats from './PlayerStats';
+import ModeSelection from './ModeSelection';
+import EndingScene from './EndingScene';
 
 const GameScreen = () => {
   const [game, setGame] = useState(null);
@@ -13,15 +15,15 @@ const GameScreen = () => {
     if (!game) {
       const config = {
         type: Phaser.AUTO,
-        width: 800,
-        height: 600,
+        width: window.innerWidth * 0.75,
+        height: 700,
         physics: {
           default: 'arcade',
           arcade: {
             gravity: { y: 0 },
           },
         },
-        scene: [StartScene, GameMode, Game],
+        scene: [StartScene, GameMode, ModeSelection, Game, EndingScene],
         parent: 'game-container',
       };
 
@@ -38,15 +40,17 @@ const GameScreen = () => {
   return (
     <>
       <SocketProvider>
-        <div className="GameContainer">
-          <PlayerStats />
-          {{ game } && (
-            <div style={{ textAlign: 'center' }} id="game-container" />
+      <div className="GameContainer">
+        <div className='GameScreen' style={{padding:15, backgroundColor:'#B0C4DE'}}>
+        {{ game } && (
+            <div style={{ width: '75%' }} id="game-container" />
           )}
-          <PlayerStats />
         </div>
-        <Chat />
-      </SocketProvider>
+          <div style={{backgroundColor:'#B0C4DE' ,flex:1, display:'flex'}}>
+            <Chat/>
+          </div>
+        </div>
+    </SocketProvider>
     </>
   );
 };

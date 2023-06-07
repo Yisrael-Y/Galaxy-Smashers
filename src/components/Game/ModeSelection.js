@@ -1,22 +1,31 @@
-class GameMode extends Phaser.Scene {
+class ModeSelection extends Phaser.Scene {
   constructor() {
-    super({ key: "GameMode" });
+    super("ModeSelection");
   }
 
   create() {
     this.add
-      .text(310, 120, "Choose your game mode", {
+      .text(310, 120, "Mode Selection", {
         fill: "#fff",
         fontFamily: "Lato",
       })
       .setScale(2)
       .setOrigin(0.2);
-
-    this.createButton(310, 200, "Singleplayer", "ModeSelection");
-    this.createButton(310, 260, "Multiplayer", "Test");
+    this.createButton(310, 200, "Easy", "Game", {
+      speed: 800,
+      predictionFactor: 0.7,
+    });
+    this.createButton(310, 260, "Medium", "Game", {
+      speed: 600,
+      predictionFactor: 0.3,
+    });
+    this.createButton(310, 320, "Hard", "Game", {
+      speed: 400,
+      predictionFactor: 0.1,
+    });
   }
 
-  createButton(x, y, text, scene) {
+  createButton(x, y, text, scene, data) {
     const buttonWidth = 150;
     const buttonHeight = 50;
     const graphics = this.add.graphics();
@@ -49,9 +58,9 @@ class GameMode extends Phaser.Scene {
 
     button.on("pointerdown", () => {
       this.sound.stopByKey("music");
-      this.scene.start(scene);
+      this.scene.start(scene, data);
     });
   }
 }
 
-export default GameMode;
+export default ModeSelection;

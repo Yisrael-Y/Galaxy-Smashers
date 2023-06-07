@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { SocketContext } from './SocketContext';
 
-export default function Chat() {
+function Chat() {
   const { alert, alertEvents, socket } =
     useContext(SocketContext);
   const [input, setInput] = useState('');
@@ -21,7 +21,11 @@ export default function Chat() {
   };
 
   return (
-    <div>
+    <div className='ChatContainer'>
+      <div className='messages'>
+        {alertEvents &&
+          alertEvents.map((event, index) => <div key={index}>{event}</div>)}
+      </div>
       <input
         type="text"
         onChange={handleChange}
@@ -29,8 +33,8 @@ export default function Chat() {
         value={input}
         onKeyDown={handleClick}
       />
-      {alertEvents &&
-        alertEvents.map((event, index) => <div key={index}>{event}</div>)}
     </div>
   );
 }
+
+export default Chat;
