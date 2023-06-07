@@ -3,7 +3,7 @@ import { Modal, Button, Form } from "react-bootstrap";
 
 const UserModal = ({ user, onUpdate, setShowUserModal }) => {
   const [editMode, setEditMode] = useState(false);
-  const [name, setName] = useState(user.name);
+  const [name, setName] = useState(user.firstName + " " + user.lastName);
   const [email, setEmail] = useState(user.email);
   const [admin, setAdmin] = useState(user.admin);
 
