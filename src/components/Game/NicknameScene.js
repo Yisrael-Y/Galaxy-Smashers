@@ -1,3 +1,5 @@
+import Phaser from "phaser";
+
 class NicknameScene extends Phaser.Scene {
   constructor() {
     super({ key: "NicknameScene" });

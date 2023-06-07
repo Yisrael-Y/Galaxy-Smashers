@@ -1,13 +1,19 @@
 import { AppBar, Box, Button, Toolbar, Typography } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import SportsTennisIcon from '@mui/icons-material/SportsTennis';
-import Modal from './Login/Modal'
+import Modal from './Login/Modal';
+import Cookies from "js-cookie";
+
 
 const NavBar = () => {
 
     const [open, setOpen] = useState(false);
     const token = localStorage.getItem('token')// this is temp
 
+    useEffect(() => {
+      console.log("cookie" + Cookies.get("token"));
+    }, [])
+    
 
     const handleOpen = () => {
         setOpen(true);
