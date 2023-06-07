@@ -3,17 +3,44 @@ class GameMode extends Phaser.Scene {
     super({ key: "GameMode" });
   }
 
+  preload() {
+    this.load.video("spaceVideo", "src/assets/space-vid.mp4");
+  }
+
   create() {
+    const centerX = this.game.canvas.width / 2;
+    const centerY = this.game.canvas.height / 2;
+    const textOffset = 60;
+    const buttonSpacing = 80;
+    const spaceVideo = this.add.video(
+      this.game.canvas.width / 2,
+      this.game.canvas.height / 2,
+      "spaceVideo"
+    );
+
+    spaceVideo.play(true);
+    spaceVideo.setOrigin(0.5);
+
     this.add
-      .text(310, 120, "Choose your game mode", {
+      .text(centerX, centerY - textOffset, "Choose your game mode", {
         fill: "#fff",
         fontFamily: "Lato",
       })
       .setScale(2)
-      .setOrigin(0.2);
+      .setOrigin(0.5);
 
-    this.createButton(310, 200, "Singleplayer", "ModeSelection");
-    this.createButton(310, 260, "Multiplayer", "Test");
+    this.createButton(
+      centerX,
+      centerY + buttonSpacing - textOffset,
+      "Singleplayer",
+      "ModeSelection"
+    );
+    this.createButton(
+      centerX,
+      centerY + buttonSpacing * 2 - textOffset,
+      "Multiplayer",
+      "WaitingRoom"
+    );
   }
 
   createButton(x, y, text, scene) {
@@ -22,33 +49,34 @@ class GameMode extends Phaser.Scene {
     const graphics = this.add.graphics();
     graphics.fillStyle(0xffffff, 1);
     graphics.lineStyle(2, 0xffffff, 1);
-    graphics.fillRoundedRect(x, y, buttonWidth, buttonHeight, 10);
-    graphics.strokeRoundedRect(x, y, buttonWidth, buttonHeight, 10);
-
-    const buttonText = this.add.text(
-      x + buttonWidth / 2,
-      y + buttonHeight / 2,
-      text,
-      {
-        fontSize: "20px",
-        fill: "#000",
-        align: "center",
-        fontFamily: "Lato",
-      }
+    graphics.fillRoundedRect(
+      x - buttonWidth / 2,
+      y - buttonHeight / 2,
+      buttonWidth,
+      buttonHeight,
+      10
     );
+    graphics.strokeRoundedRect(
+      x - buttonWidth / 2,
+      y - buttonHeight / 2,
+      buttonWidth,
+      buttonHeight,
+      10
+    );
+
+    const buttonText = this.add.text(x, y, text, {
+      fontSize: "20px",
+      fill: "#000",
+      align: "center",
+      fontFamily: "Lato",
+    });
 
     buttonText.setOrigin(0.5, 0.5);
 
-    const button = this.add.zone(
-      x + buttonWidth / 2,
-      y + buttonHeight / 2,
-      buttonWidth,
-      buttonHeight
-    );
+    const button = this.add.zone(x, y, buttonWidth, buttonHeight);
     button.setInteractive();
 
     button.on("pointerdown", () => {
-      this.sound.stopByKey("music");
       this.scene.start(scene);
     });
   }

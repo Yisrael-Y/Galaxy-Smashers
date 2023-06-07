@@ -1,4 +1,3 @@
-
 import Phaser from "phaser";
 
 class StartScene extends Phaser.Scene {
@@ -39,6 +38,8 @@ class StartScene extends Phaser.Scene {
         this.scene.start("GameMode");
       });
   }
+
+  connectToSocket() {}
 }
 
 export default StartScene;

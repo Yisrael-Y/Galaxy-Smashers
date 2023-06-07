@@ -42,6 +42,43 @@ class Game extends Phaser.Scene {
     this.add.image(width / 2, height / 2, "sky").setDisplaySize(width, height);
     this.sound.play("rocky", { loop: true });
 
+    // player name and score boxes
+    const boxWidth = 200;
+    const boxHeight = 50;
+    const padding = 10;
+
+    // boxes
+    const graphics = this.add.graphics();
+    graphics.fillStyle(0x000000, 0.5);
+    graphics.fillRect(padding, padding, boxWidth, boxHeight);
+    graphics.fillRect(width - boxWidth - padding, padding, boxWidth, boxHeight);
+
+    this.scoreText = this.add.text(width / 2, 50, "0 | 0", {
+      fontSize: "32px",
+      fill: "#fff",
+    });
+    this.scoreText.setOrigin(0.5);
+
+    // adding all the player name here, in the future from currently logged in user
+    this.playerNameText1 = this.add.text(
+      padding + 10,
+      padding + 10,
+      "Player 1",
+      {
+        fontSize: "20px",
+        fill: "#fff",
+      }
+    );
+    this.playerNameText2 = this.add.text(
+      width - boxWidth - padding + 10,
+      padding + 10,
+      "Player 2",
+      {
+        fontSize: "20px",
+        fill: "#fff",
+      }
+    );
+
     const localPlayerKeys = this.input.keyboard.createCursorKeys();
     // send player movement to server
     this.input.keyboard.on("keydown", (event) => {
@@ -74,11 +111,6 @@ class Game extends Phaser.Scene {
       this.physics.add.collider(player, this.ball);
     });
 
-    this.scoreText = this.add.text(width / 2, 50, "0 | 0", {
-      fontSize: "32px",
-      fill: "#fff",
-    });
-    this.scoreText.setOrigin(0.5);
     this.startGame();
   }
 
@@ -103,7 +135,9 @@ class Game extends Phaser.Scene {
   updateScore(playerIndex) {
     this.score[playerIndex]++;
     this.scoreText.setText(`${this.score[0]} | ${this.score[1]}`);
-    if (this.score[playerIndex] === 1) {
+    // this.playerNameText1.setText(`Player 1`);
+    // this.playerNameText2.setText(`Player 2`);
+    if (this.score[playerIndex] === 7) {
       this.scene.start("EndingScene", {
         winner: playerIndex === 0 ? "Player 1" : "Player 2",
       });
