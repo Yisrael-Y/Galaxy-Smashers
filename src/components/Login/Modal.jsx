@@ -42,19 +42,35 @@ const UserModal = ({ open, handleClose }) => {
       aria-describedby="modal-modal-description"
     >
       <Box sx={style}>
-        <Box sx={{  display: 'flex', marginBottom:'15px'}}>
-          <Button variant='contained' className='UserModalButton' onClick={handleSignUpClick}>Sign Up</Button>
-          <IconButton >
+        <Box sx={{ display: "flex", marginBottom: "15px" }}>
+          <Button
+            variant="contained"
+            className="UserModalButton"
+            onClick={handleSignUpClick}
+          >
+            Sign Up
+          </Button>
+          <IconButton>
             <LoginIcon />
           </IconButton>
-          <Button variant='contained' className='UserModalButton' onClick={handleLoginClick}>Log In</Button>
+          <Button
+            variant="contained"
+            className="UserModalButton"
+            onClick={handleLoginClick}
+          >
+            Log In
+          </Button>
         </Box>
 
         <Box>
-          <IconButton sx={{ position: 'absolute', top: 0, right: 0 }}>
+          <IconButton sx={{ position: "absolute", top: 0, right: 0 }}>
             <SportsTennisIcon />
           </IconButton>
-          {currentRequest === 'Login' ? <Login /> : <Signup />}
+          {currentRequest === "Login" ? (
+            <Login handleClose={handleClose} />
+          ) : (
+            <Signup />
+          )}
         </Box>
       </Box>
     </Modal>

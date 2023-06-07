@@ -10,13 +10,13 @@ import newAxios from '../Axios';
 import { authContext } from '../../context/authContext';
 import { useNavigate } from 'react-router-dom';
 
-const Login = () => {
+const Login = ({ handleClose }) => {
   const [user, setUser] = useState({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   });
-  const [errorMessage, setErrorMessage] = useState('');
-  const [message, setMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState("");
+  const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const { setUserDetails } = useContext(authContext);
 
@@ -28,14 +28,15 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setErrorMessage('');
-    setMessage('');
+    setErrorMessage("");
+    setMessage("");
     try {
-      const response = await newAxios.post('/users/login', user);
+      const response = await newAxios.post("/users/login", user);
       setUserDetails(response.data);
       if (response.data) {
-        setMessage('Logged in Successfully');
-        navigate('/gamescreen');
+        setMessage("Logged in Successfully");
+        handleClose();
+        navigate("/gamescreen");
       }
     } catch (error) {
       console.error(error);
