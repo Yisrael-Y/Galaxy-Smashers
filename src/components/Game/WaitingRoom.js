@@ -75,7 +75,7 @@ class WaitingRoom extends Phaser.Scene {
 
     this.socket.on("game start", (message) => {
       console.log(message);
-      this.scene.start("GameScene");
+      this.scene.start("Game");
     });
   }
 

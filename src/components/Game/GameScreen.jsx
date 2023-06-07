@@ -23,7 +23,7 @@ const GameScreen = () => {
             gravity: { y: 0 },
           },
         },
-        scene: [StartScene, GameMode, ModeSelection, WaitingRoom , Game, EndingScene],
+        scene: [StartScene, GameMode, ModeSelection, WaitingRoom, Game, EndingScene],
         parent: 'game-container',
       };
 
