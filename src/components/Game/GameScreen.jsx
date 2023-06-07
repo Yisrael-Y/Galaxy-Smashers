@@ -4,9 +4,9 @@ import { SocketProvider, Chat } from '../Chat';
 import StartScene from './StartScreen';
 import GameMode from './GameMode';
 import Game from './Game';
-import PlayerStats from './PlayerStats';
 import ModeSelection from './ModeSelection';
 import EndingScene from './EndingScene';
+import WaitingRoom from './WaitingRoom';
 
 const GameScreen = () => {
   const [game, setGame] = useState(null);
@@ -23,7 +23,7 @@ const GameScreen = () => {
             gravity: { y: 0 },
           },
         },
-        scene: [StartScene, GameMode, ModeSelection, Game, EndingScene],
+        scene: [StartScene, GameMode, ModeSelection, WaitingRoom, Game, EndingScene],
         parent: 'game-container',
       };
 

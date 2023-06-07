@@ -3,26 +3,62 @@ class ModeSelection extends Phaser.Scene {
     super("ModeSelection");
   }
 
+  preload() {
+    this.load.video("spaceVideo", "src/assets/space-vid.mp4");
+  }
+
   create() {
+    const centerX = this.game.canvas.width / 2;
+    const centerY = this.game.canvas.height / 2;
+    const textOffset = 60;
+    const buttonSpacing = 80;
+    const spaceVideo = this.add.video(
+      this.game.canvas.width / 2,
+      this.game.canvas.height / 2,
+      "spaceVideo"
+    );
+
+    spaceVideo.play(true);
+    spaceVideo.setOrigin(0.5);
+
     this.add
-      .text(310, 120, "Mode Selection", {
+      .text(centerX, centerY - textOffset, "Mode Selection", {
         fill: "#fff",
         fontFamily: "Lato",
       })
       .setScale(2)
-      .setOrigin(0.2);
-    this.createButton(310, 200, "Easy", "Game", {
-      speed: 800,
-      predictionFactor: 0.7,
-    });
-    this.createButton(310, 260, "Medium", "Game", {
-      speed: 600,
-      predictionFactor: 0.3,
-    });
-    this.createButton(310, 320, "Hard", "Game", {
-      speed: 400,
-      predictionFactor: 0.1,
-    });
+      .setOrigin(0.5, 0.5);
+
+    this.createButton(
+      centerX,
+      centerY + buttonSpacing - textOffset,
+      "Easy",
+      "Game",
+      {
+        speed: 800,
+        predictionFactor: 0.7,
+      }
+    );
+    this.createButton(
+      centerX,
+      centerY + buttonSpacing * 2 - textOffset,
+      "Medium",
+      "Game",
+      {
+        speed: 600,
+        predictionFactor: 0.3,
+      }
+    );
+    this.createButton(
+      centerX,
+      centerY + buttonSpacing * 3 - textOffset,
+      "Hard",
+      "Game",
+      {
+        speed: 400,
+        predictionFactor: 0.1,
+      }
+    );
   }
 
   createButton(x, y, text, scene, data) {
@@ -31,29 +67,31 @@ class ModeSelection extends Phaser.Scene {
     const graphics = this.add.graphics();
     graphics.fillStyle(0xffffff, 1);
     graphics.lineStyle(2, 0xffffff, 1);
-    graphics.fillRoundedRect(x, y, buttonWidth, buttonHeight, 10);
-    graphics.strokeRoundedRect(x, y, buttonWidth, buttonHeight, 10);
-
-    const buttonText = this.add.text(
-      x + buttonWidth / 2,
-      y + buttonHeight / 2,
-      text,
-      {
-        fontSize: "20px",
-        fill: "#000",
-        align: "center",
-        fontFamily: "Lato",
-      }
+    graphics.fillRoundedRect(
+      x - buttonWidth / 2,
+      y - buttonHeight / 2,
+      buttonWidth,
+      buttonHeight,
+      10
     );
+    graphics.strokeRoundedRect(
+      x - buttonWidth / 2,
+      y - buttonHeight / 2,
+      buttonWidth,
+      buttonHeight,
+      10
+    );
+
+    const buttonText = this.add.text(x, y, text, {
+      fontSize: "20px",
+      fill: "#000",
+      align: "center",
+      fontFamily: "Lato",
+    });
 
     buttonText.setOrigin(0.5, 0.5);
 
-    const button = this.add.zone(
-      x + buttonWidth / 2,
-      y + buttonHeight / 2,
-      buttonWidth,
-      buttonHeight
-    );
+    const button = this.add.zone(x, y, buttonWidth, buttonHeight);
     button.setInteractive();
 
     button.on("pointerdown", () => {
