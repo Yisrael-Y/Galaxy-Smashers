@@ -1,9 +1,9 @@
-import socket from '../Chat/Socket';
+import socket from "../Chat/Socket";
 import Phaser from "phaser";
 
 class Game extends Phaser.Scene {
   constructor() {
-    super({ key: 'Game' });
+    super({ key: "Game" });
     this.players = [];
     this.speed = 600;
     this.score = [0, 0];
@@ -11,19 +11,27 @@ class Game extends Phaser.Scene {
     this.gameReset = false;
     this.ballSpeedX = 300;
     this.ballSpeedY = 300;
+    this.predictionFactor = 0.3;
+  }
+
+  init(data) {
+    if (data) {
+      this.speed = data.speed;
+      this.predictionFactor = data.predictionFactor;
+    }
   }
 
   preload() {
-    this.load.audio('rocky', 'src/assets/rocky.mp3');
-    this.load.image('sky', 'src/assets/space-bag.jpg');
+    this.load.audio("rocky", "src/assets/rocky.mp3");
+    this.load.image("sky", "src/assets/space-bag.jpg");
   }
 
   getDirectionFromKeyCode(keyCode) {
     switch (keyCode) {
       case 38:
-        return 'up';
+        return "up";
       case 40:
-        return 'down';
+        return "down";
       default:
         return null;
     }
@@ -31,14 +39,14 @@ class Game extends Phaser.Scene {
 
   create() {
     const { width, height } = this.game.canvas;
-    this.add.image(width / 2, height / 2, 'sky').setDisplaySize(width, height);
-    this.sound.play('rocky', { loop: true });
+    this.add.image(width / 2, height / 2, "sky").setDisplaySize(width, height);
+    this.sound.play("rocky", { loop: true });
 
     const localPlayerKeys = this.input.keyboard.createCursorKeys();
     // send player movement to server
-    this.input.keyboard.on('keydown', (event) => {
+    this.input.keyboard.on("keydown", (event) => {
       const direction = this.getDirectionFromKeyCode(event.keyCode);
-      socket.emit('local-player-movement', direction);
+      socket.emit("local-player-movement", direction);
     });
 
     this.players.push(
@@ -66,9 +74,9 @@ class Game extends Phaser.Scene {
       this.physics.add.collider(player, this.ball);
     });
 
-    this.scoreText = this.add.text(width / 2, 50, '0 | 0', {
-      fontSize: '32px',
-      fill: '#fff',
+    this.scoreText = this.add.text(width / 2, 50, "0 | 0", {
+      fontSize: "32px",
+      fill: "#fff",
     });
     this.scoreText.setOrigin(0.5);
     this.startGame();
@@ -95,6 +103,11 @@ class Game extends Phaser.Scene {
   updateScore(playerIndex) {
     this.score[playerIndex]++;
     this.scoreText.setText(`${this.score[0]} | ${this.score[1]}`);
+    if (this.score[playerIndex] === 1) {
+      this.scene.start("EndingScene", {
+        winner: playerIndex === 0 ? "Player 1" : "Player 2",
+      });
+    }
   }
 
   startGame() {
@@ -131,9 +144,8 @@ class Game extends Phaser.Scene {
       if (this.gameStarted) {
         //AI movements
         if (!player.controls) {
-          /* let predictionFactor = 0.1; // This value can be tweaked
           let futureBallY =
-            this.ball.y + this.ball.body.velocity.y * predictionFactor;
+            this.ball.y + this.ball.body.velocity.y * this.predictionFactor;
           if (futureBallY < player.y && player.body.velocity.y > -this.speed) {
             player.body.setVelocityY(player.body.velocity.y - this.speed * 0.1); // Easing factor applied
           } else if (
@@ -141,13 +153,13 @@ class Game extends Phaser.Scene {
             player.body.velocity.y < this.speed
           ) {
             player.body.setVelocityY(player.body.velocity.y + this.speed * 0.1); // Easing factor applied
-          } */
+          }
 
           // receive player movement from server
-          socket.on('remote-player-movement', (direction) => {
-            if (direction === 'down') {
+          socket.on("remote-player-movement", (direction) => {
+            if (direction === "down") {
               player.body.setVelocityY(this.speed);
-            } else if (direction === 'up') {
+            } else if (direction === "up") {
               player.body.setVelocityY(-this.speed);
             }
           });

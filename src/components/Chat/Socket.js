@@ -1,6 +1,6 @@
-import io from 'socket.io-client';
+import io from "socket.io-client";
 
 const URL = import.meta.env.VITE_SERVER;
-const socket = io(URL);
+const socket = io(import.meta.env.VITE_NET);
 
 export default socket;
