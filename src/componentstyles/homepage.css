@@ -157,13 +157,50 @@ body {
 .btn-animated:hover::after {
   transform: scaleX(1.4) scaleY(1.6);
   opacity: 0;
+  transition: transform 0.4s, opacity 0.4s; /* Add transition properties */
 }
 
 .btn-animated {
-  animation: moveInBottom 2s ease-out 0.75;
-  animation-fill-mode: backwards;
-  color: #ff8484;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  padding: 1.5rem 4rem;
+  display: inline-block;
+  border-radius: 30px;
+  background-color: #ff8484;
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.6rem;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
+
+.btn-animated::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.2);
+  transform-origin: right;
+  transform: scaleX(0);
+  transition: transform 0.2s;
+  z-index: -1;
+}
+
+.btn-animated:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.btn-animated:hover::before {
+  transform-origin: left;
+  transform: scaleX(1);
+}
+
 @keyframes moveInBottom {
   0% {
     opacity: 0;

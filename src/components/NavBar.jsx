@@ -4,7 +4,7 @@ import RocketLaunchIcon from "@mui/icons-material/RocketLaunch";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Modal from "./Login/Modal";
 import { useNavigate } from "react-router-dom";
-import { UserContext, authContext } from "../context/authContext";
+import { authContext } from "../context/authContext";
 import newAxios from "./Axios";
 
 const NavBar = () => {
@@ -27,54 +27,63 @@ const NavBar = () => {
   const handleLogOut = async () => {
     try {
       await newAxios.get(`/users/logout`);
-      setUserDetails("");
+      setUserDetails('');
       navigateToHomepage();
     } catch (error) {
       console.log(error);
     }
   };
 
+  const handlePlayNow = () => {
+    navigate("/gamescreen");
+  };
+
   return (
     <AppBar
       className="AppContainer"
       position="static"
-      sx={{ backgroundColor: "#483D8B" }}
+      sx={{ backgroundColor: "#b25c5c" }}
     >
-      <Toolbar>
-        <RocketLaunchIcon />
-        <Typography
-          on
-          variant="h6"
-          className="Header"
-          onClick={navigateToHomepage}
-        >
-          Galaxy Smashers
-        </Typography>
-        <Box
-          sx={{ flexGrow: 0, display: { xs: "flex", sm: "flex", md: "flex" } }}
-        >
+      <Toolbar sx={{ justifyContent: "space-between" }}>
+        <Box sx={{ display: "flex", alignItems: "center" }}>
+          <RocketLaunchIcon />
+          <Typography
+            variant="h6"
+            className="Header"
+            onClick={navigateToHomepage}
+          >
+            Galaxy Smashers
+          </Typography>
+        </Box>
+        <Box>
           {userDetails ? (
-            <Button
-              onClick={(e) => handleLogOut(e)}
-              sx={{ my: 2, color: "white", display: "block" }}
-            >
-              Log Out
-            </Button>
+            <>
+              <Button
+                onClick={handlePlayNow}
+                sx={{ my: 2, mr: 2, color: "white" }}
+              >
+                Play now
+              </Button>
+              <Button
+                onClick={(e) => handleLogOut(e)}
+                sx={{ my: 2, color: "white" }}
+              >
+                Log Out
+              </Button>
+            </>
           ) : (
-            <Button
-              onClick={() => handleOpen()}
-              sx={{ my: 2, color: "white", display: "block" }}
-            >
+            <Button onClick={() => handleOpen()} sx={{ my: 2, color: "white" }}>
               Log in
             </Button>
           )}
+          {userDetails && (
+            <AccountCircleIcon
+              variant="h6"
+              className="Header"
+              onClick={() => navigate("/profile")}
+            />
+          )}
         </Box>
-        {userDetails && <AccountCircleIcon
-          on
-          variant="h6"
-          className="Header"
-          onClick={() => navigate("/profile")}
-        />}
       </Toolbar>
       <Modal open={open} handleClose={handleClose} />
     </AppBar>

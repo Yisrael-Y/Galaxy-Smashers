@@ -12,6 +12,7 @@ class Game extends Phaser.Scene {
     this.ballSpeedX = 300;
     this.ballSpeedY = 300;
     this.predictionFactor = 0.3;
+    this.playerName = localStorage.getItem("user");
   }
 
   init(data) {
@@ -63,7 +64,7 @@ class Game extends Phaser.Scene {
     this.playerNameText1 = this.add.text(
       padding + 10,
       padding + 10,
-      "Player 1",
+      this.playerName,
       {
         fontSize: "20px",
         fill: "#fff",
@@ -72,7 +73,7 @@ class Game extends Phaser.Scene {
     this.playerNameText2 = this.add.text(
       width - boxWidth - padding + 10,
       padding + 10,
-      "Player 2",
+      "Computer",
       {
         fontSize: "20px",
         fill: "#fff",
@@ -139,7 +140,7 @@ class Game extends Phaser.Scene {
     // this.playerNameText2.setText(`Player 2`);
     if (this.score[playerIndex] === 7) {
       this.scene.start("EndingScene", {
-        winner: playerIndex === 0 ? "Player 1" : "Player 2",
+        winner: playerIndex === 0 ? this.playerName : "Computer",
       });
     }
   }

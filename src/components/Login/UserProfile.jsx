@@ -1,127 +1,117 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Card, FloatingLabel, Button, Form } from "react-bootstrap";
-import { authContext } from "../../context/authContext";
-import { useNavigate } from "react-router";
+import React, { useContext, useState } from 'react';
+import { authContext } from '../../context/authContext';
+import axios from 'axios'
+import '../../componentstyles/profile.css'
 
 const UserProfile = () => {
-  const { userDetails, editUser, setUserDetails, fetchUser } =
-    useContext(authContext);
-    const navigate = useNavigate()
-  const [firstName, setFirstname] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [profilePicture, setProfilePicture] = useState(
-    userDetails.profilePicture || ""
-  );
-  const [userImg, setUserImg] = useState("");
-  const [edit, setEdit] = useState(false);
-  const [showPasswordModal, setShowPasswordModal] = useState(false);
+  const [formValues, setFormValues] = useState({
+    email: '',
+    firstName: '',
+    lastName: '',
+    phoneNumber: '',
+    bio: '',
+  });
+  const { userDetails } = useContext(authContext);
+  const [error, setError] = useState(null);
+  const [message, setMessage] = useState('')
 
-  useEffect(() => {
-    !userDetails && navigate("/")
-    
-  }, [])
-  
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    const userData = new FormData();
-    userData.append("firstName", firstName);
-    userData.append("lastName", lastName);
-    userData.append("picture", userImg);
-    await editUser(userData);
-    setEdit(false);
-    fetchUser();
-  };
 
   const handleChange = (event) => {
-    const { name, value } = event.target;
-    if (name === "name") {
-      setFirstname(value);
-    } else if (name === "email") {
-      setLastName(value);
+    setFormValues({ ...formValues, [event.target.name]: event.target.value });
+  };
+
+  const handleSubmit = async (event) => {
+    setMessage('')
+    setError(null)
+    event.preventDefault();
+    try {
+      const content = {
+        formValues,
+        token
+      }
+      const response = await axios.put(`${process.env.VITE_SERVER}/users/update`, content)
+      setMessage(response.data.message);
+      setFormValues({
+        email: '',
+        firstName: '',
+        lastName: '',
+        phoneNumber: '',
+        bio: '',
+      })
+    } catch (error) {
+      console.log(error);
+      setError(error);
     }
   };
 
-  const handleEdit = () => {
-    setEdit(true);
-    setFirstname(userDetails.firstName);
-    setLastName(userDetails.lastName);
-  };
-
-  const handlePasswordModal = () => {
-    setShowPasswordModal(!showPasswordModal);
-  };
-
   return (
-    <div>
-      {!edit ? (
-        <Card style={{ width: "18rem", height: "20rem" }}>
-          <Card.Body>
-            <Card.Title>{userDetails.firstName}</Card.Title>
-            <Card.Subtitle className="mb-2 text-muted">
-              {userDetails.email}
-            </Card.Subtitle>
-            <Card.Img variant="top" src={profilePicture} alt="Profile Image" />
-          </Card.Body>
-          <Button variant="primary" onClick={handleEdit}>
-            Edit Profile
-          </Button>
-        </Card>
-      ) : (
-        <Card style={{ width: "20rem" }}>
-          <Form onSubmit={handleSubmit}>
-            <Card.Body>
-              <FloatingLabel
-                controlId="floatingInput"
-                label="Email address"
-                className="mb-3"
-              >
-                <Form.Control
-                  type="email"
-                  placeholder={userDetails.email}
-                  value={lastName}
-                  name="email"
-                  onChange={handleChange}
-                />
-              </FloatingLabel>
+    <div className="ProfileCard">
+      <div className="ProfileCardTop">
+        <img className='ProfileManPic' src="/male3d.png" alt="" />
+        <div className="ProfileCard-header">
+            <h1>My Profile</h1>
+        </div>
+      </div>
+      <div className="CurrentUserDetails">
+        <p>First Name: {userDetails ? userDetails.firstName : '' }</p>
+        <p>Last Name: {userDetails? userDetails.lastName : ''}</p>
+        <p>Email: {userDetails ? userDetails.email : ''}</p>
+        <p>Nickname: {userDetails? userDetails.nickname : ''}</p>
+      </div>
+      <div>
+        <form onSubmit={handleSubmit} className="ProfileForm" >
+          <label className='ProfileLabels' htmlFor="email">Email:</label>
+          <input
+            className='ProfileInput'
+            type="email"
+            name="email"
+            value={formValues.email}
+            onChange={handleChange}
+          />
 
-              <FloatingLabel label="Full name">
-                <Form.Control
-                  type="text"
-                  name="name"
-                  placeholder={userDetails.firstName}
-                  value={firstName}
-                  onChange={handleChange}
-                />
-              </FloatingLabel>
-              <FloatingLabel label="Profile Image">
-                <Form.Control
-                  type="file"
-                  accept="image/jpeg, image/gif" // Update the accepted file types
-                  onChange={(e) => setUserImg(e.target.files[0])}
-                  required
-                />
-                {userImg && (
-                  <img
-                    src={URL.createObjectURL(userImg)}
-                    alt="Selected Profile Image"
-                    style={{ marginTop: "10px", maxWidth: "100px" }}
-                  />
-                )}
-              </FloatingLabel>
-            </Card.Body>
-            <div className="d-flex justify-content-around mt-2 mb-2">
-              <Button variant="primary" type="submit">
-                Save Changes
-              </Button>
-              <Button variant="secondary" onClick={() => setEdit(false)}>
-                Cancel
-              </Button>
-            </div>
-          </Form>
-        </Card>
-      )}
+          <label className='ProfileLabels' htmlFor="firstName">First Name:</label>
+          <input
+            className='ProfileInput'
+            type="text"
+            name="firstName"
+            value={formValues.firstName}
+            onChange={handleChange}
+          />
+
+          <label className='ProfileLabels' htmlFor="lastName">Last Name:</label>
+          <input
+            className='ProfileInput'
+            type="text"
+            name="lastName"
+            value={formValues.lastName}
+            onChange={handleChange}
+          />
+
+          <label className='ProfileLabels' htmlFor="phoneNumber">Phone Number:</label>
+          <input
+            className='ProfileInput'
+            type="tel"
+            name="phoneNumber"
+            value={formValues.phoneNumber}
+            onChange={handleChange}
+          />
+
+          <label className='ProfileLabels' htmlFor="bio">Short Bio:</label>
+          <textarea
+            className='ProfileInput'
+            name="bio"
+            rows="4"
+            value={formValues.bio}
+            onChange={handleChange}
+          ></textarea>
+
+          <button type="submit" className="ProfileForm-saveButton">
+            Save
+          </button>
+        </form>
+        {message && <div className='Success'>{message}</div>}
+        {error && <div className='ErrorMessage'>{error}</div>}
+      </div>
     </div>
   );
 };

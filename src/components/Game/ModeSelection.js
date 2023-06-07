@@ -36,7 +36,7 @@ class ModeSelection extends Phaser.Scene {
       "Game",
       {
         speed: 800,
-        predictionFactor: 0.7,
+        predictionFactor: 0.5,
       }
     );
     this.createButton(
@@ -46,7 +46,7 @@ class ModeSelection extends Phaser.Scene {
       "Game",
       {
         speed: 600,
-        predictionFactor: 0.3,
+        predictionFactor: 0.15,
       }
     );
     this.createButton(
@@ -56,7 +56,7 @@ class ModeSelection extends Phaser.Scene {
       "Game",
       {
         speed: 400,
-        predictionFactor: 0.1,
+        predictionFactor: 0.05,
       }
     );
   }

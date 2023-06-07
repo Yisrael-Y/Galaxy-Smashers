@@ -11,8 +11,9 @@ export const UserContext = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    fetchUser();
+    if(!userDetails) fetchUser();
   }, [userDetails]);
+  
 
   const fetchUser = async () => {
     setIsLoading(true);
@@ -27,6 +28,7 @@ export const UserContext = ({ children }) => {
       if (response.status === 200) {
         const user = response.data;
         setUserDetails(user);
+        localStorage.setItem("user", user.nickname ? user.nickname : 'Player 1')
       }
     } catch (error) {
       console.error(error);
@@ -80,8 +82,7 @@ export const UserContext = ({ children }) => {
         isLoading,
       }}
     >
-      {error && <div>Error: {error}</div>}
-      {isLoading ? <div>Loading...</div> : children}
+      {children}
     </authContext.Provider>
   );
 };

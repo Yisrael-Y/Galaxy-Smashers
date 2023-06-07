@@ -41,12 +41,12 @@ const GameScreen = () => {
     <>
       <SocketProvider>
       <div className="GameContainer">
-        <div className='GameScreen' style={{padding:15, backgroundColor:'#B0C4DE'}}>
+        <div className='GameScreen' style={{padding:15, backgroundColor:'#fff2f2'}}>
         {{ game } && (
             <div style={{ width: '75%' }} id="game-container" />
           )}
         </div>
-          <div style={{backgroundColor:'#B0C4DE' ,flex:1, display:'flex'}}>
+          <div style={{backgroundColor:'#fff2f2' ,flex:1, display:'flex'}}>
             <Chat/>
           </div>
         </div>
