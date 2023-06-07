@@ -1,0 +1,20 @@
+
+.adminDashboard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.addPetsForm {
+    max-width: 50vw;
+}
+
+.usersList, .petsList {
+    width: 90vw;
+}
+
+th {
+    font-weight: 700;
+    font-size: 14px;
+}

@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { authContext } from '../../context/authContext';
+import "../../componentstyles/gamescreen.css"
 
 const PlayerStats = () => {
 
