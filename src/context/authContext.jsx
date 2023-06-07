@@ -4,7 +4,11 @@ import newAxios from '../components/Axios'
 export const authContext = React.createContext()
 
 export const UserContext = ({children}) => {
-    const [userDetails, setUserDetails] = useState(null)
+    const [userDetails, setUserDetails] = useState(null);
+    const [users, setUsers] = useState([]);
+    const [currentUser, setCurrentUser] = useState({});
+
+
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -26,10 +30,32 @@ export const UserContext = ({children}) => {
         };
         fetchUser();
       }, []);
+
+        const fetchUsers = async () => {
+          try {
+            const res = await newAxios.get(`/users/players`, {
+              withCredentials: true,
+            });
+            setUsers(res.data);
+          } catch (err) {
+            console.log(err);
+          }
+        };
+
+          const fetchCurrentUser = async () => {
+            try {
+              const res = await newAxios.get(`/player/:id`, {
+                withCredentials: true,
+              });
+              setCurrentUser(res.data);
+            } catch (err) {
+              console.log(err);
+            }
+          };
     
     
   return (
-    <authContext.Provider value={{ setUserDetails, userDetails }}>
+    <authContext.Provider value={{ setUserDetails, userDetails, users, setUsers, fetchUsers, currentUser, setCurrentUser, fetchCurrentUser }}>
         {children}
     </authContext.Provider>
   )
