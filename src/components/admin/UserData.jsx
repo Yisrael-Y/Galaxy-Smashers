@@ -19,7 +19,7 @@ const UserData = ({ user, rowNum, setShowUserModal, setSelectedUser }) => {
       <tbody>
         <tr>
           <td>{rowNum}</td>
-          <td>{user.name}</td>
+          <td>{user.firstName + " " + user.lastName}</td>
           <td>{user.email}</td>
           <td>{user.admin}</td>
           <td>
