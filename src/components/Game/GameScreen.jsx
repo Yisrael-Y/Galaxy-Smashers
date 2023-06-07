@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import Phaser from 'phaser';
+import { SocketProvider, Chat } from '../Chat';
 import StartScene from './StartScreen';
-import NicknameScene from './NicknameScene';
-import Game from './Game'
+import GameMode from './GameMode';
+import Game from './Game';
+import PlayerStats from './PlayerStats';
 
 const GameScreen = () => {
   const [game, setGame] = useState(null);
@@ -16,11 +18,11 @@ const GameScreen = () => {
         physics: {
           default: 'arcade',
           arcade: {
-              gravity: { y: 0 }
-          }
-      },
-        scene: [StartScene, NicknameScene, Game],
-        parent: 'game-container'
+            gravity: { y: 0 },
+          },
+        },
+        scene: [StartScene, GameMode, Game],
+        parent: 'game-container',
       };
 
       setGame(new Phaser.Game(config));
@@ -28,17 +30,25 @@ const GameScreen = () => {
 
     return () => {
       if (game) {
-        game.destroy(); 
+        game.destroy();
       }
     };
   }, [game]);
 
-  return ( <div className='GameContainer'>
-              <h1 className='PlayerStats'>Player Stats</h1>
-              {{game} && <div style={{textAlign:'center'}} id="game-container"/>}
-              <h1 className='PlayerStats'>Player Stats</h1>
-          </div>
-);
+  return (
+    <>
+      <SocketProvider>
+        <div className="GameContainer">
+          <PlayerStats />
+          {{ game } && (
+            <div style={{ textAlign: 'center' }} id="game-container" />
+          )}
+          <PlayerStats />
+        </div>
+        <Chat />
+      </SocketProvider>
+    </>
+  );
 };
 
 export default GameScreen;

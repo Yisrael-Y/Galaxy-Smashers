@@ -1,13 +1,11 @@
-import { Button, Container, Typography } from '@mui/material';
 import React, { useState } from 'react'
 import Modal from "./Login/Modal"
-import { useNavigate } from 'react-router-dom';
 import "../componentstyles/homepage.css"
 
 const Homepage = () => {
 
     //  const navigate = useNavigate();
-     const [open, setOpen] = useState(true);
+     const [open, setOpen] = useState(false);
 
 
     const handleClick = () => {

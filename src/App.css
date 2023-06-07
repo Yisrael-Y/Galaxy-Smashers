@@ -14,6 +14,10 @@ body {
   flex: 1;
 }
 
+.Header {
+  cursor: pointer;
+}
+
 .Footer {
   margin-top: 3;
   padding: 3;
