@@ -43,7 +43,7 @@ const GameScreen = () => {
       <div className="GameContainer">
         <div className='GameScreen' style={{padding:15, backgroundColor:'#fff2f2'}}>
         {{ game } && (
-            <div style={{ width: '75%' }} id="game-container" />
+            <div style={{ width: '70vw' }} id="game-container" />
           )}
         </div>
           <div style={{backgroundColor:'#fff2f2' ,flex:1, display:'flex'}}>
