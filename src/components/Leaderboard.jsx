@@ -8,7 +8,7 @@
         useEffect(() => {
             const getLeaderboard = async () => {
                 try {
-                    const response = await newAxios.get(`${import.meta.env.VITE_SERVER}/users/leaderboard`);
+                    const response = await newAxios.get(`/users/leaderboard`);
                     setLeaderboard(response.data);
                 } catch (error) {
                     console.log(error);
