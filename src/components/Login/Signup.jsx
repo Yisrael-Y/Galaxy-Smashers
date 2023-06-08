@@ -112,7 +112,12 @@ const Signup = () => {
                         fullWidth
                         margin="normal"
                     />
-                    <Button fullWidth variant="contained" type="submit" className='LoginButton' >
+                    <Button sx={{
+                      background: '#ff8484',
+                      '&:hover': {
+                        background: '#ff8484',
+                      }
+                    }} fullWidth variant="contained" type="submit" className='LoginButton' >
                         Sign up
                     </Button>
                     {errorMessage && <Typography className='ErrorMessage'>{errorMessage}</Typography>}

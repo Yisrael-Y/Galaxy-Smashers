@@ -44,6 +44,12 @@ const UserModal = ({ open, handleClose }) => {
       <Box sx={style}>
         <Box sx={{ display: "flex", marginBottom: "15px" }}>
           <Button
+          sx={{
+            background: '#ff8484',
+            '&:hover': {
+              background: '#ff8484',
+            }
+          }}
             variant="contained"
             className="UserModalButton"
             onClick={handleSignUpClick}
@@ -54,6 +60,12 @@ const UserModal = ({ open, handleClose }) => {
             <LoginIcon />
           </IconButton>
           <Button
+          sx={{
+            background: '#ff8484',
+            '&:hover': {
+              background: '#ff8484',
+            }
+          }}
             variant="contained"
             className="UserModalButton"
             onClick={handleLoginClick}
