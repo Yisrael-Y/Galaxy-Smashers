@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import Login from './Login';
 import Signup from './Signup';
 import IconButton from '@mui/material/IconButton';
-import SportsTennisIcon from '@mui/icons-material/SportsTennis';
+import RocketLaunchIcon from "@mui/icons-material/RocketLaunch";
 import Button from '@mui/material/Button';
 import LoginIcon from '@mui/icons-material/Login';
 
@@ -64,7 +64,7 @@ const UserModal = ({ open, handleClose }) => {
 
         <Box>
           <IconButton sx={{ position: "absolute", top: 0, right: 0 }}>
-            <SportsTennisIcon />
+            <RocketLaunchIcon />
           </IconButton>
           {currentRequest === "Login" ? (
             <Login handleClose={handleClose} />
