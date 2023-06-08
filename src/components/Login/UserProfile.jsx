@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { authContext } from '../../context/authContext';
 import '../../componentstyles/profile.css'
 import newAxios from '../Axios';
@@ -11,9 +11,13 @@ const UserProfile = () => {
     phone: '',
     bio: '',
   });
-  const { userDetails } = useContext(authContext);
+  const { userDetails, fetchUser } = useContext(authContext);
   const [error, setError] = useState(null);
   const [message, setMessage] = useState('')
+
+useEffect(() => {
+  fetchUser();
+}, [userDetails]);
 
 
   const handleChange = (event) => {
@@ -25,7 +29,7 @@ const UserProfile = () => {
     setError(null)
     event.preventDefault();
     try {
-      const response = await newAxios.put(`${import.meta.env.VITE_SERVER}/users/updateUser`, formValues)
+      const response = await newAxios.put(`/users/updateUser`, formValues)
       setMessage(response.data.message);
       setFormValues({
         email: '',
