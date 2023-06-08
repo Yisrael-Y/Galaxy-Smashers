@@ -38,6 +38,10 @@ const NavBar = () => {
     navigate("/gamescreen");
   };
 
+  const handleLeaderboard = () => {
+    navigate("/leaderboard");
+  };
+
   return (
     <AppBar
       className="AppContainer"
@@ -56,6 +60,12 @@ const NavBar = () => {
           </Typography>
         </Box>
         <Box>
+             <Button
+                onClick={handleLeaderboard}
+                sx={{ my: 2, mr: 2, color: "white" }}
+              >
+                Leaderboard
+              </Button>
           {userDetails ? (
             <>
               <Button

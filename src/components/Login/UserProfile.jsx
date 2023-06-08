@@ -25,7 +25,7 @@ const UserProfile = () => {
     setError(null)
     event.preventDefault();
     try {
-      const response = await newAxios.put(`${import.meta.env.VITE_SERVER}/users/update`, formValues)
+      const response = await newAxios.put(`${import.meta.env.VITE_SERVER}/users/updateUser`, formValues)
       setMessage(response.data.message);
       setFormValues({
         email: '',

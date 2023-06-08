@@ -1,0 +1,33 @@
+.leaderboard-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  font-family: "Poppins", sans-serif;
+  background: #f0f0f0;
+}
+
+.leaderboard-title {
+  margin-bottom: 20px;
+}
+
+.leaderboard-item {
+  background-color: white;
+  padding: 10px;
+  margin: 5px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.leaderboard-item.winner {
+  background-color: gold;
+}
+
+.nickname,
+.games-won {
+  display: inline-block;
+}

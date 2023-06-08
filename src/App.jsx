@@ -7,6 +7,7 @@ import Footer from './components/Footer';
 import './App.css';
 import AdminDashboard from './components/admin/AdminDashboard';
 import UserProfile from './components/Login/UserProfile';
+import Leaderboard from './components/Leaderboard';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/gamescreen" element={<GameScreen />} />
         <Route path="/admindashboard" element={<AdminDashboard />} />
         <Route path="/profile" element={<UserProfile />} />
+        <Route path="/leaderboard" element={<Leaderboard />} />
       </Routes>
       <Footer />
     </>

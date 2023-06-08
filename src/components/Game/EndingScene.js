@@ -1,3 +1,4 @@
+import newAxios from "../Axios";
 class EndingScene extends Phaser.Scene {
   constructor() {
     super({ key: "EndingScene" });
@@ -15,7 +16,21 @@ class EndingScene extends Phaser.Scene {
         fill: "#fff",
       })
       .setOrigin(0.5);
+    if (this.winner === localStorage.getItem("user")) {
+      this.updateWinner();
+    }
   }
+
+  updateWinner = async () => {
+    try {
+      const response = await newAxios.get(
+        `${import.meta.env.VITE_SERVER}/users/incrementWin`
+      );
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 }
 
 export default EndingScene;
