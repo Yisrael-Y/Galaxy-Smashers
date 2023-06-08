@@ -20,11 +20,13 @@ function Chat() {
     }
   };
 
+  const currentUser = localStorage.getItem('user');
+
   return (
     <div className='ChatContainer'>
       <div className='messages'>
         {alertEvents &&
-          alertEvents.map((event, index) => <div key={index}>{event}</div>)}
+          alertEvents.map((event, index) => <div key={index}>{currentUser}: {event}</div>)}
       </div>
       <input
         type="text"
