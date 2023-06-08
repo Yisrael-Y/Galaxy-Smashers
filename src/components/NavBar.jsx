@@ -2,6 +2,8 @@ import { AppBar, Box, Button, Toolbar, Typography } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
 import RocketLaunchIcon from "@mui/icons-material/RocketLaunch";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import PlayCircleIcon from "@mui/icons-material/PlayCircle";
+import SportsScoreIcon from "@mui/icons-material/SportsScore";
 import Modal from "./Login/Modal";
 import { useNavigate } from "react-router-dom";
 import { authContext } from "../context/authContext";
@@ -63,15 +65,15 @@ const NavBar = () => {
              <Button
                 onClick={handleLeaderboard}
                 sx={{ my: 2, mr: 2, color: "white" }}
-              >
+              ><SportsScoreIcon/>
                 Leaderboard
               </Button>
           {userDetails ? (
             <>
-              <Button
+              <Button 
                 onClick={handlePlayNow}
                 sx={{ my: 2, mr: 2, color: "white" }}
-              >
+              ><PlayCircleIcon/>
                 Play now
               </Button>
               <Button
