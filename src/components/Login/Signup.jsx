@@ -2,6 +2,7 @@ import { CircularProgress, TextField, Button, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import React, { useContext, useState } from 'react'
 import newAxios from '../Axios'
+import { authContext } from '../../context/authContext'
 
 
 const Signup = () => {

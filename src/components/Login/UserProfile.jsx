@@ -1,14 +1,14 @@
 import React, { useContext, useState } from 'react';
 import { authContext } from '../../context/authContext';
-import axios from 'axios'
 import '../../componentstyles/profile.css'
+import newAxios from '../Axios';
 
 const UserProfile = () => {
   const [formValues, setFormValues] = useState({
     email: '',
     firstName: '',
     lastName: '',
-    phoneNumber: '',
+    phone: '',
     bio: '',
   });
   const { userDetails } = useContext(authContext);
@@ -25,17 +25,13 @@ const UserProfile = () => {
     setError(null)
     event.preventDefault();
     try {
-      const content = {
-        formValues,
-        token
-      }
-      const response = await axios.put(`${process.env.VITE_SERVER}/users/update`, content)
+      const response = await newAxios.put(`${import.meta.env.VITE_SERVER}/users/update`, formValues)
       setMessage(response.data.message);
       setFormValues({
         email: '',
         firstName: '',
         lastName: '',
-        phoneNumber: '',
+        phone: '',
         bio: '',
       })
     } catch (error) {
@@ -57,6 +53,8 @@ const UserProfile = () => {
         <p>Last Name: {userDetails? userDetails.lastName : ''}</p>
         <p>Email: {userDetails ? userDetails.email : ''}</p>
         <p>Nickname: {userDetails? userDetails.nickname : ''}</p>
+        <p>Phone Number: {userDetails ? userDetails.phone : 'None'}</p>
+        <p>Bio: {userDetails? userDetails.bio : 'None'}</p>
       </div>
       <div>
         <form onSubmit={handleSubmit} className="ProfileForm" >
@@ -90,9 +88,9 @@ const UserProfile = () => {
           <label className='ProfileLabels' htmlFor="phoneNumber">Phone Number:</label>
           <input
             className='ProfileInput'
-            type="tel"
-            name="phoneNumber"
-            value={formValues.phoneNumber}
+            type="number"
+            name="phone"
+            value={formValues.phone}
             onChange={handleChange}
           />
 
