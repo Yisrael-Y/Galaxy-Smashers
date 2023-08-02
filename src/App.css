@@ -14,23 +14,15 @@ body {
   flex: 1;
 }
 
-.GameScreen {
-  margin-top: 3;
-  min-height: 70vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #000;
-  color: #fff;
-  font-size: 2em;
-  position: relative;
+.Header {
+  cursor: pointer;
 }
 
 .Footer {
   margin-top: 3;
   padding: 3;
   text-align: center;
-  background-color: #333;
+  background-color: #b25c5c;
   color: #fff;
 }
 
@@ -122,6 +114,53 @@ body {
   text-align: center;
   opacity: 0;
   animation: fadeIn 0.4s ease forwards;
+}
+
+.player {
+  position: absolute;
+  background-color: white;
+  width: 10px;
+  height: 50px;
+}
+
+.GameContainer {
+  display: flex;
+}
+.ChatContainer {
+  display: flex;
+  flex-direction: column;
+  height: 500px;
+  width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin: auto;
+  background: white;
+}
+
+.ChatContainer .messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px;
+}
+
+.ChatContainer .messages div {
+  margin-bottom: 15px;
+  padding: 10px;
+  border-radius: 5px;
+  background: #f0f0f0;
+}
+
+.ChatContainer input {
+  border: none;
+  padding: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  border-top: 1px solid #ddd;
+}
+
+#game-container {
+  flex: 2;
 }
 
 @keyframes fadeIn {

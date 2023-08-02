@@ -1,47 +1,105 @@
-import { AppBar, Box, Button, Toolbar, Typography } from '@mui/material'
-import React, { useState } from 'react'
-import SportsTennisIcon from '@mui/icons-material/SportsTennis';
-import Modal from './Login/Modal'
+import { AppBar, Box, Button, Toolbar, Typography } from "@mui/material";
+import React, { useContext, useEffect, useState } from "react";
+import RocketLaunchIcon from "@mui/icons-material/RocketLaunch";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import PlayCircleIcon from "@mui/icons-material/PlayCircle";
+import SportsScoreIcon from "@mui/icons-material/SportsScore";
+import Modal from "./Login/Modal";
+import { useNavigate } from "react-router-dom";
+import { authContext } from "../context/authContext";
+import newAxios from "./Axios";
 
 const NavBar = () => {
+  const [open, setOpen] = useState(false);
+  const { userDetails, setUserDetails } = useContext(authContext);
 
-    const [open, setOpen] = useState(false);
-    const token = localStorage.getItem('token')// this is temp
+  const navigate = useNavigate();
+  const handleOpen = () => {
+    setOpen(true);
+  };
 
+  const handleClose = () => {
+    setOpen(false);
+  };
 
-    const handleOpen = () => {
-        setOpen(true);
-      };
-    
-      const handleClose = () => {
-        setOpen(false);
-      };
+  const navigateToHomepage = () => {
+    navigate("/");
+  };
+
+  const handleLogOut = async () => {
+    try {
+      await newAxios.get(`/users/logout`);
+      setUserDetails('');
+      navigateToHomepage();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handlePlayNow = () => {
+    navigate("/gamescreen");
+  };
+
+  const handleLeaderboard = () => {
+    navigate("/leaderboard");
+  };
+
   return (
-    <AppBar className='AppContainer' position="static">
-        <Toolbar>
-            <SportsTennisIcon/>
-            <Typography variant="h6" className='Header' >
-                Galaxy Smashers
-            </Typography>
-            <Box sx={{ flexGrow: 0, display: { xs: 'flex', sm: 'flex', md: 'flex' } }}>
-                {token ? <Button
+    <AppBar
+      className="AppContainer"
+      position="static"
+      sx={{ backgroundColor: "#b25c5c" }}
+    >
+      <Toolbar sx={{ justifyContent: "space-between" }}>
+        <Box sx={{ display: "flex", alignItems: "center" }}>
+          <RocketLaunchIcon />
+          <Typography
+            variant="h6"
+            className="Header"
+            onClick={navigateToHomepage}
+          >
+            Galaxy Smashers
+          </Typography>
+        </Box>
+        <Box>
+             <Button
+                onClick={handleLeaderboard}
+                sx={{ my: 2, mr: 2, color: "white" }}
+              ><SportsScoreIcon/>
+                Leaderboard
+              </Button>
+          {userDetails ? (
+            <>
+              <Button 
+                onClick={handlePlayNow}
+                sx={{ my: 2, mr: 2, color: "white" }}
+              ><PlayCircleIcon/>
+                Play now
+              </Button>
+              <Button
                 onClick={(e) => handleLogOut(e)}
-                sx={{ my: 2, color: 'black', display: 'block'}}
-                >
+                sx={{ my: 2, color: "white" }}
+              >
                 Log Out
-                </Button>
-                : 
-                <Button
-                onClick={() => handleOpen()}
-                sx={{ my: 2, color: 'black', display: 'block'}}
-                >
-                Log in
-                </Button> }
-            </Box>
-        </Toolbar>
-        <Modal open={open} handleClose={handleClose} />
+              </Button>
+            </>
+          ) : (
+            <Button onClick={() => handleOpen()} sx={{ my: 2, color: "white" }}>
+              Log in
+            </Button>
+          )}
+          {userDetails && (
+            <AccountCircleIcon
+              variant="h6"
+              className="Header"
+              onClick={() => navigate("/profile")}
+            />
+          )}
+        </Box>
+      </Toolbar>
+      <Modal open={open} handleClose={handleClose} />
     </AppBar>
-  )
-}
+  );
+};
 
-export default NavBar
+export default NavBar;

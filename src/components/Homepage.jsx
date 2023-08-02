@@ -1,17 +1,20 @@
-import { Button, Container, Typography } from '@mui/material';
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import Modal from "./Login/Modal"
-import { useNavigate } from 'react-router-dom';
 import "../componentstyles/homepage.css"
+import { authContext } from '../context/authContext';
+import { useNavigate } from 'react-router';
 
 const Homepage = () => {
+  const { userDetails } = useContext(authContext);
+
+  const navigate = useNavigate();
 
     //  const navigate = useNavigate();
-     const [open, setOpen] = useState(true);
+     const [open, setOpen] = useState(false);
 
 
     const handleClick = () => {
-      setOpen(true);
+      userDetails ? navigate("/gamescreen") : setOpen(true);
     };
 
     const handleClose = () => {
